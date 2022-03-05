@@ -7,44 +7,34 @@
  * @since   2022-02-19
  */
 
+
 // Typescript Statistics program
-const fs = require('fs')
+var fs = require('fs');
+var arrayOfIntegers = fs.readFileSync('./set1.txt').toString().split("\n");
 
-const folderName = '/home/ubuntu/ICS4U/Unit01/unit1-06/ics4u-unit1-06-typescript/src'
-try {
-  if (!fs.existsSync(folderName)) {
-    fs.mkdirSync(folderName)
-  }
-} catch (err) {
-  console.error(err)
+const showarray = (arrayOfIntegers:any) => {
+  const mid = Math.floor(arrayOfIntegers.length / 2),
+    nums = [...arrayOfIntegers].sort((a, b) => a - b);
+  return arrayOfIntegers.length % 2 !== 0 ? nums[mid] : (nums[mid - 2] + nums[mid]) / 2;
+};
+console.log(showarray([arrayOfIntegers]));
+function median(arrayOFIntegers:any){
+  if(arrayOfIntegers.length ===0) throw new Error("No inputs");
+
+  arrayOfIntegers.sort(function(a:any,b:any){
+    return a-b;
+  });
+
+  var half = Math.floor(arrayOfIntegers.length / 2);
+  
+  if (arrayOfIntegers.length % 2)
+    return arrayOfIntegers[half];
+  
+  return (arrayOfIntegers[half - 1] + arrayOfIntegers[half]) / 2.0;
 }
 
 
-function mean(arrayOfIntegers: any) {
-    let size: number = arrayOfIntegers.length
-    var  total = 0
-    for (let singleElementinArray in arrayOfIntegers) {
-        total += parseFloat(singleElementinArray)
-    }
-    let meanValue: number = (total/size)
-    return meanValue
-}
-function median(arrayOfIntegers: any) {
-    var returnValue: number
-    var array = arrayOfIntegers
-    array.sort()
-    let numberOfNumbers = array.length
-    if (numberOfNumbers % 2 == 0){
-        let numberOfMedian1 = (numberOfNumbers/2) - 1
-        let median1:number = array[numberOfMedian1]
-        let numberOfMedian2 = (numberOfNumbers/2)
-        let median2: number = array[numberOfMedian2]
-        returnValue = (median1+median2) / 2
-    } else {
-        let numberOfMedian = (numberOfNumbers / 2) + 0.5
-        returnValue = (array[numberOfMedian])
-    }
-        return returnValue
-}
+ console.log (" The median is " , median(arrayOfIntegers))
+ 
 
-console.log('\nCalculating stats...')
+
